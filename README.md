@@ -1,75 +1,64 @@
 # Reflect
 
-Reflect is a minimalist desktop journaling and mood tracking application built with Python and CustomTkinter. It provides a local, private workspace to record thoughts and monitor daily moods without cloud dependencies or complex setup.
+A minimalist, privacy-focused desktop personal journal built with Python and CustomTkinter, designed with a modern macOS dark aesthetic.
 
 ---
 
-## Highlights
+## Overview
 
-* Clean and responsive user interface built using modern CustomTkinter components.
-* Mood tracking integrated directly into daily journal logs.
-* Local SQLite storage keeping all data entirely on your machine.
-* Cross-platform support with native launcher integration on Linux and single-binary packaging for Windows.
+**Reflect** is an offline personal journaling application created to offer a distraction-free writing environment. It keeps all data strictly local, encrypts authentication using local cryptographic hashing, and provides visual mood insights without external cloud dependencies.
 
 ---
 
-## Requirements
+## Features
 
-* Python 3.10 or higher
-* Git
+### Minimalist Writing Experience
+- **macOS Dark Mode Aesthetics**: Custom dark palette, smooth rounded corners, clean hierarchy, and no emojis.
+- **Zen / Focus Mode (`F11`)**: Fullscreen, distraction-free view hiding all navigation bars and lists to keep the focus solely on writing.
+- **Journaling Templates**: Pre-configured prompts ("Daily Gratitude", "Evening Review", "Brain Dump") to jumpstart entries.
+- **Auto-Save Drafts**: Automatically preserves unsaved text in real time so thoughts are never lost if the window is closed.
+
+### Organization & Search
+- **Real-Time Search**: Instant dynamic search by keyword across titles and content.
+- **Quick Mood Filter Chips**: One-click filtering by specific mood states.
+- **Date Range Filters**: Filter entries by "All Time", "Today", "This Week", or "This Month".
+- **Pin to Top**: Anchor important reflections to the top of the entry list.
+- **"On This Day" Widget**: Highlights entries written on the same calendar date in past months or years.
+
+### Analytics & Security
+- **Mood Analytics**: Visual chart breakdown tracking emotional balance (Happy, Calm, Productive, Neutral, Tired, Stressed, Anxious, Sad).
+- **Local PIN Protection**: Secure launch screen backed by salted PBKDF2/SHA-256 local hashing.
+- **Auto-Lock on Inactivity**: Automatically secures the app after 5 minutes of idle time.
+- **100% Local Storage**: Powered by an offline SQLite database (`journal.db`).
 
 ---
 
-## Installation
+## Tech Stack
 
-Clone the repository and enter the project folder:
+- **GUI**: [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter)
+- **Database**: SQLite3 (Local storage)
+- **Analytics / Plotting**: Matplotlib
+- **Security**: Python standard `hashlib`
 
-```bash
-git clone [https://github.com/romanrazvan288/Personal-Journal---App.git](https://github.com/romanrazvan288/Personal-Journal---App.git)
-cd Personal-Journal---App
-Create and activate a virtual environment:
+---
 
-Bash
-# Linux
-python3 -m venv .venv
-source .venv/bin/activate
+## Installation & Setup
 
-# Windows
-python -m venv .venv
-.venv\Scripts\activate
-Install the project dependencies:
+### Prerequisites
+- Python 3.10 or higher
+- Git
+
+### Quickstart
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/romanrazvan288/Personal-Journal---App.git](https://github.com/romanrazvan288/Personal-Journal---App.git)
+   cd Personal-Journal---App
+Install dependencies:
 
 Bash
 pip install -r requirements.txt
-Running the Application
-Linux
-Start the application from terminal:
+Run the application:
 
 Bash
 python3 app.py
-If you installed the desktop shortcut, you can also launch it directly by searching for Reflect in the Ubuntu application menu.
-
-Windows
-Run using Python:
-
-Bash
-python app.py
-Building an Executable for Windows
-To compile the application into an independent executable that runs without requiring Python installed, execute the following command inside PowerShell or Command Prompt on Windows:
-
-Bash
-pyinstaller --noconsole --onefile --name "Reflect" --icon="icon.ico" --add-data "icon.ico;." --add-data "icon.png;." --collect-all customtkinter app.py
-The resulting binary will be generated at dist/Reflect.exe.
-
-Repository Structure
-Plaintext
-Personal-Journal---App/
-├── app.py             # Application UI and event logic
-├── database.py        # Database schema and SQLite interactions
-├── requirements.txt   # Third-party dependencies
-├── icon.png           # Window and desktop shortcut icon for Linux
-├── icon.ico           # Executable and window icon for Windows
-├── .gitignore         # Rules excluding databases, caches, and build files
-└── README.md          # Project documentation
-Data Privacy
-All journal entries and mood selections are stored exclusively inside a local SQLite file (journal.db). The database is excluded from version control through .gitignore to keep personal reflections strictly private and off remote repositories.
