@@ -1,11 +1,20 @@
-import customtkinter as ctk
+import platform
+from pathlib import Path
 from tkinter import messagebox
 from typing import Callable, Dict, Any, Optional
+
+import customtkinter as ctk
+from PIL import Image, ImageTk
+
 import database
 
 # Configure global CustomTkinter appearance
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
+
+BASE_DIR = Path(__file__).resolve().parent
+ICON_PNG_PATH = BASE_DIR / "icon.png"
+ICON_ICO_PATH = BASE_DIR / "icon.ico"
 
 PREVIEW_MAX_CHARS = 120
 
@@ -160,15 +169,17 @@ class EntryCard(ctk.CTkFrame):
         self.on_delete(self.entry_id)
 
 
-class PersonalJournalApp(ctk.CTk):
-    """Main application window for the Personal Journal desktop app."""
+class Reflect(ctk.CTk):
+    """Main application window for the Reflect desktop journal app."""
 
     def __init__(self) -> None:
         super().__init__()
 
-        self.title("Personal Journal")
+        self.title("Reflect")
         self.geometry("1060x680")
         self.minsize(880, 540)
+
+        self._set_app_icon()
 
         # Track the ID of the entry currently being edited (None when creating a new entry)
         self.editing_entry_id: Optional[int] = None
@@ -181,6 +192,21 @@ class PersonalJournalApp(ctk.CTk):
         self._build_left_column()
         self._build_right_column()
         self.refresh_entries()
+
+    def _set_app_icon(self) -> None:
+        """Dynamically load the desktop window icon across Windows and Linux."""
+        current_os = platform.system()
+        try:
+            if current_os == "Windows" and ICON_ICO_PATH.exists():
+                self.iconbitmap(str(ICON_ICO_PATH))
+            elif ICON_PNG_PATH.exists():
+                # Load via PIL for Linux window managers
+                img = Image.open(ICON_PNG_PATH)
+                self._photo_icon = ImageTk.PhotoImage(img)
+                self.wm_iconphoto(True, self._photo_icon)
+        except Exception:
+            # Fallback gracefully if display environment restricts icon application
+            pass
 
     def _build_left_column(self) -> None:
         """Create the left column form for adding or editing a journal entry."""
@@ -280,7 +306,6 @@ class PersonalJournalApp(ctk.CTk):
             font=ctk.CTkFont(size=14, weight="bold"),
             command=self.cancel_edit,
         )
-        # Hidden by default until an entry is selected for editing
 
     def _build_right_column(self) -> None:
         """Create the right column containing the scrollable list of past entries."""
@@ -323,7 +348,6 @@ class PersonalJournalApp(ctk.CTk):
         """Populate the left-hand form with the selected entry's data and switch to Edit mode."""
         self.editing_entry_id = entry["id"]
 
-        # Update form header and buttons
         self.form_header.configure(text="✏️ Edit Journal Entry")
         self.save_button.configure(
             text="Update Entry",
@@ -334,7 +358,6 @@ class PersonalJournalApp(ctk.CTk):
         self.save_button.grid_configure(padx=(0, 6))
         self.cancel_edit_button.grid(row=0, column=1, sticky="ew", padx=(6, 0))
 
-        # Populate form fields with full entry data
         self.title_entry.delete(0, "end")
         self.title_entry.insert(0, entry["title"])
 
@@ -347,7 +370,6 @@ class PersonalJournalApp(ctk.CTk):
         self.content_textbox.insert("1.0", entry["content"])
         self.content_textbox.focus()
 
-        # Refresh cards to highlight the active card being edited
         self.refresh_entries()
 
     def cancel_edit(self) -> None:
@@ -454,5 +476,5 @@ class PersonalJournalApp(ctk.CTk):
 
 if __name__ == "__main__":
     database.init_db()
-    app = PersonalJournalApp()
+    app = Reflect()
     app.mainloop()

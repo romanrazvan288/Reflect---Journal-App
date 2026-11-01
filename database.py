@@ -3,7 +3,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any
 
-DB_PATH = Path(__file__).parent / "journal.db"
+BASE_DIR = Path(__file__).resolve().parent
+DB_PATH = BASE_DIR / "journal.db"
 
 
 def get_connection() -> sqlite3.Connection:
