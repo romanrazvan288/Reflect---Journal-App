@@ -1,53 +1,75 @@
-# Personal Journal App
+# Reflect
 
-A clean, modern desktop journaling application built with **Python**, **CustomTkinter**, and **SQLite**. It offers a distraction-free environment to log daily thoughts, track moods, and manage personal reflections.
-
----
-
-## Features
-
-- **Modern Dark UI:** Responsive interface powered by CustomTkinter.
-- **Mood Tracking:** Categorize daily entries with color-coded mood indicators.
-- **Local SQLite Storage:** Fast, lightweight, and completely private offline persistence.
-- **Feed Management:** Browse past reflections with truncated snippet previews and full delete options.
+Reflect is a minimalist desktop journaling and mood tracking application built with Python and CustomTkinter. It provides a local, private workspace to record thoughts and monitor daily moods without cloud dependencies or complex setup.
 
 ---
 
-## Tech Stack
+## Highlights
 
-- **Language:** Python 3.10+
-- **GUI Toolkit:** CustomTkinter
-- **Database:** SQLite3
+* Clean and responsive user interface built using modern CustomTkinter components.
+* Mood tracking integrated directly into daily journal logs.
+* Local SQLite storage keeping all data entirely on your machine.
+* Cross-platform support with native launcher integration on Linux and single-binary packaging for Windows.
 
 ---
 
-## Getting Started
+## Requirements
 
-### Prerequisites
+* Python 3.10 or higher
+* Git
 
-Ensure you have Python 3 installed. If you are on Linux/Ubuntu and encounter Tkinter display issues, install the system package:
+---
+
+## Installation
+
+Clone the repository and enter the project folder:
 
 ```bash
-sudo apt update && sudo apt install -y python3-tk
-
-Installation and Setup
-Clone the repository:
-
-Bash
 git clone [https://github.com/romanrazvan288/Personal-Journal---App.git](https://github.com/romanrazvan288/Personal-Journal---App.git)
 cd Personal-Journal---App
-Set up a virtual environment (recommended):
+Create and activate a virtual environment:
 
 Bash
+# Linux
 python3 -m venv .venv
 source .venv/bin/activate
-Install dependencies:
+
+# Windows
+python -m venv .venv
+.venv\Scripts\activate
+Install the project dependencies:
 
 Bash
 pip install -r requirements.txt
-Launch the application:
+Running the Application
+Linux
+Start the application from terminal:
 
 Bash
 python3 app.py
-License
-This project is open-source and available under the MIT License.
+If you installed the desktop shortcut, you can also launch it directly by searching for Reflect in the Ubuntu application menu.
+
+Windows
+Run using Python:
+
+Bash
+python app.py
+Building an Executable for Windows
+To compile the application into an independent executable that runs without requiring Python installed, execute the following command inside PowerShell or Command Prompt on Windows:
+
+Bash
+pyinstaller --noconsole --onefile --name "Reflect" --icon="icon.ico" --add-data "icon.ico;." --add-data "icon.png;." --collect-all customtkinter app.py
+The resulting binary will be generated at dist/Reflect.exe.
+
+Repository Structure
+Plaintext
+Personal-Journal---App/
+├── app.py             # Application UI and event logic
+├── database.py        # Database schema and SQLite interactions
+├── requirements.txt   # Third-party dependencies
+├── icon.png           # Window and desktop shortcut icon for Linux
+├── icon.ico           # Executable and window icon for Windows
+├── .gitignore         # Rules excluding databases, caches, and build files
+└── README.md          # Project documentation
+Data Privacy
+All journal entries and mood selections are stored exclusively inside a local SQLite file (journal.db). The database is excluded from version control through .gitignore to keep personal reflections strictly private and off remote repositories.
