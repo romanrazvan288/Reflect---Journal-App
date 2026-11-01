@@ -48,17 +48,51 @@ A minimalist, privacy-focused desktop personal journal built with Python and Cus
 - Python 3.10 or higher
 - Git
 
-### Quickstart
+---
+
+### Linux (Ubuntu / Debian)
 
 1. **Clone the repository:**
    ```bash
    git clone [https://github.com/romanrazvan288/Personal-Journal---App.git](https://github.com/romanrazvan288/Personal-Journal---App.git)
    cd Personal-Journal---App
+Create and activate a virtual environment (recommended):
+
+Bash
+python3 -m venv venv
+source venv/bin/activate
 Install dependencies:
 
 Bash
 pip install -r requirements.txt
-Run the application:
+Launch Reflect:
 
 Bash
 python3 app.py
+(Optional: You can integrate Reflect into your desktop application menu via a .desktop entry in ~/.local/share/applications/.)
+
+Windows
+Clone the repository:
+
+DOS
+git clone [https://github.com/romanrazvan288/Personal-Journal---App.git](https://github.com/romanrazvan288/Personal-Journal---App.git)
+cd Personal-Journal---App
+Create and activate a virtual environment (Command Prompt / PowerShell):
+
+DOS
+python -m venv venv
+venv\Scripts\activate
+Install dependencies:
+
+DOS
+pip install -r requirements.txt
+Launch Reflect:
+
+DOS
+python app.py
+Standalone Executable (No Python Required)
+If you prefer running Reflect directly without installing Python or cloning source files:
+
+Windows: Download the pre-built Reflect.exe from the Releases page and run it directly.
+
+Linux: Download reflect-linux from the Releases section, grant execute permissions (chmod +x reflect-linux), and run ./reflect-linux.
